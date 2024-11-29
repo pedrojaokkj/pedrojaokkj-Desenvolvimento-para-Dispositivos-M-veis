@@ -1,28 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-class Toggle extends React.Component{
+const numbers = [1,2,3,4,5,6,7]
 
-  constructor(props){
-    super(props)
-    this.state = {isToggleOn : false}
-    //this.handleClick = this.handleClick.bind(this)
-  }
+const listItens = numbers.map((number, index) => <li key={index}>{number}</li>)
 
-  handleClick(){
-    this.setState(prevState => ({
-      isToggleOn: !prevState.isToggleOn
-    })  )
-  }
-
-  render(){
-    return <button onClick={() => this.handleClick()}>{this.state.isToggleOn ? 'ON' : 'OFF'}</button>
-  }
-}
+const element = <ul>{listItens}</ul>
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Toggle/>
+  element
 );
 
 
