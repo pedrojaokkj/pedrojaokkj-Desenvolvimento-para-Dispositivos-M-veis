@@ -1,15 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-const numbers = [1,2,3,4,5,6,7]
 
-const listItens = numbers.map((number, index) => <li key={index}>{number}</li>)
+class Form extends React.Component {
 
-const element = <ul>{listItens}</ul>
+  constructor(props) {
+    super(props)
+    this.state = { value: 'React!' }
+    this.handleChance = this.handleChance.bind(this)
+  }
+
+  handleChance(event) {
+    this.setState({ value: event.target.value })
+  }
+
+  render() {
+    return (
+      <form>
+        <input onChange={this.handleChance} value={this.state.value} />
+      </form>
+    )
+  }
+}
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  element
+  <Form/>
 );
 
 
