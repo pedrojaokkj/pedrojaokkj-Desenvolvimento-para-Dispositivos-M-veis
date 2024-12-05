@@ -1,75 +1,68 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 
-// class Form extends React.Component {
+class Clock extends React.Component {
 
-//   constructor(props) {
-//     super(props)
-//     this.state = { nome: 'Gustavo', cor: 'branco' }
-//     this.handleChance = this.handleChance.bind(this)
-//     this.handleSubmit = this.handleSubmit.bind(this)
-//   }
+  constructor(props) {
+    super(props)
+    this.state = { date: new Date() }
+  }
 
-//   handleChance(event) {
+  componentDidMount() {
+    this.timerId = setInterval(() => {
+      this.setState({ date: new Date() });
+    }, 1000);
+  }
 
-//     const nameEvt = event.target.name
+  componentWillUnmount() {
+    clearInterval(this.timerId)
+  }
 
-//     this.setState({ [nameEvt]: event.target.value })
-
-//   }
-
-//   handleSubmit(event) {
-
-//     alert(`O usuário de nome ${this.state.nome} escolheu a cor ${this.state.cor}`)
-//     event.preventDefault()
-//   }
-
-//   render() {
-//     return (
-//       <form onSubmit={this.handleSubmit}>
-//         <input name="nome" type="text" onChange={this.handleChance} value={this.state.nome}></input>
-//         <select name="cor" value={this.state.cor} onChange={this.handleChance}>
-//           <option value="laranja">Laranja</option>
-//           <option value="branco">Branco</option>
-//           <option value="verde">Verde</option>
-//           <option value="amarelo">Amarelo</option>
-//         </select>
-//         <input type="submit" value="Enviar!" />
-//       </form>
-//     )
-//   }
-// }
-
-
-function Form2(props){
-
-  const [nome, setNome] = useState('João')
-  const [cor, setCor] = useState('Laranja')
-
-  return (
-    <form onSubmit={(event) => {
-      alert(`O usuário de nome ${nome} escolheu a cor ${cor}`)
-      event.preventDefault()
-    }}>
-      <input name="nome" type="text" onChange={(event) => setNome(event.target.value)} value={nome}></input>
-      <select name="cor" value={cor} onChange={(event) => setCor(event.target.value)}>
-        <option value="laranja">Laranja</option>
-        <option value="branco">Branco</option>
-        <option value="verde">Verde</option>
-        <option value="amarelo">Amarelo</option>
-      </select>
-      <input type="submit" value="Enviar!" />
-    </form>
-  )
+  render() {
+    return (
+      <div>
+        <h1>Hello, world!</h1>
+        <h2>It is {this.state.date.toLocaleTimeString()} </h2>
+      </div>
+    );
+  };
 }
 
 
+function Clock2(){
+
+  const [data, setData] = useState(new Date())
+  
+  useEffect(() => {
+    const id = setInterval(() => setData(new Date(), 1000))
+    return () => {
+      clearInterval(id)
+    }
+  }, [])
+
+  return (
+    <div>
+      <h1>Hello, world!</h1>
+      <h2>It is {data.toLocaleTimeString()} </h2>
+    </div>
+  );
+
+}
+
+function App() {
+  return (
+    <div>
+      <Clock />
+      <Clock2 />
+    </div>
+  );
+}
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Form2/> 
+  <App/> 
 );
 
 
